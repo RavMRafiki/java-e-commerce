@@ -1,6 +1,5 @@
-package com.ravmr.ecommerce.web;
+package com.ravmr.ecommerce.auth;
 
-import com.ravmr.ecommerce.auth.AuthService;
 import com.ravmr.ecommerce.security.JwtTokenService;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Value;

@@ -22,13 +22,13 @@ public class AuthService {
     }
 
     @Transactional
-    public String issueRefreshToken(String username) {
+    public String issueRefreshToken(String userId) {
         String jti = UUID.randomUUID().toString();
-        String token = jwt.generateRefreshToken(username, jti);
+        String token = jwt.generateRefreshToken(userId, jti);
         Jws<Claims> jws = jwt.parseExpectingType(token, "refresh");
         RefreshToken rt = new RefreshToken();
         rt.setJti(jti);
-        rt.setUsername(username);
+        rt.setUserId(userId);
         rt.setCreatedAt(Instant.now());
         rt.setExpiresAt(jws.getBody().getExpiration().toInstant());
         repo.save(rt);
@@ -45,8 +45,8 @@ public class AuthService {
         existing.setRevokedAt(Instant.now());
         repo.save(existing);
 
-        String username = jws.getBody().getSubject();
-        return issueRefreshToken(username);
+        String userId = jws.getBody().getSubject();
+        return issueRefreshToken(userId);
     }
 
     @Transactional

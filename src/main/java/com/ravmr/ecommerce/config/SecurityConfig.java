@@ -47,7 +47,7 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/login", "/api/auth/refresh", "/api/auth/logout", "/api/ping", "/actuator/**").permitAll()
+                .requestMatchers("/api/auth/login", "/api/user/register", "/api/auth/refresh", "/api/auth/logout", "/api/ping", "/actuator/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(new JwtAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);

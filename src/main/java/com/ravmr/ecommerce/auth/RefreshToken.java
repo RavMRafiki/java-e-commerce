@@ -16,7 +16,7 @@ public class RefreshToken {
     private String jti;
 
     @Column(nullable = false, length = 128)
-    private String username;
+    private String userId;
 
     @Column(nullable = false)
     private Instant expiresAt;
@@ -32,8 +32,8 @@ public class RefreshToken {
     public Long getId() { return id; }
     public String getJti() { return jti; }
     public void setJti(String jti) { this.jti = jti; }
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
     public Instant getExpiresAt() { return expiresAt; }
     public void setExpiresAt(Instant expiresAt) { this.expiresAt = expiresAt; }
     public Instant getCreatedAt() { return createdAt; }
