@@ -18,7 +18,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private boolean activated;
+    private boolean activated = false;
 
     @Column(nullable = false, length = 64)
     private String firstName;
