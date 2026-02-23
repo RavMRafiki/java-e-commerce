@@ -29,11 +29,6 @@ public class User {
     @Column(nullable = false, length = 128)
     private String passwordHash;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
-    private Delivery defaultDelivery;
-
-
     public Long getId() { return id; }
 
     public String getUsername() { return username;}
@@ -48,6 +43,4 @@ public class User {
     public void setLastName(String lastName) { this.lastName = lastName; }
     public String getPasswordHash() { return passwordHash; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
-    public Delivery getDefaultDelivery() { return defaultDelivery; }
-    public void setDefaultDelivery(Delivery delivery) { this.defaultDelivery = delivery; }
 }
