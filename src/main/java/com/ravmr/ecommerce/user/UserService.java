@@ -30,4 +30,10 @@ public class UserService {
         user.setPasswordHash(passwordEncoder.encode(password));
         return repo.createNewUser(user);
     }
+
+    @Transactional
+    User getUserByUsername(String username) {
+        return repo.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+    }
 }
