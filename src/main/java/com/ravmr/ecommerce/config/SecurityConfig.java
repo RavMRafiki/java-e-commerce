@@ -1,5 +1,7 @@
 package com.ravmr.ecommerce.config;
 
+import com.ravmr.ecommerce.auth.exception.CustomAccessDeniedHandler;
+import com.ravmr.ecommerce.auth.exception.CustomAuthenticationEntryPoint;
 import com.ravmr.ecommerce.security.JwtAuthenticationFilter;
 import com.ravmr.ecommerce.security.JwtTokenService;
 import com.ravmr.ecommerce.user.DatabaseUserDetailsService;
@@ -67,7 +69,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/login", "/api/user/register", "/api/auth/refresh", "/api/auth/logout", "/api/ping", "/actuator/**").permitAll()
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(new JwtAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new JwtAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class)
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
+            );
         return http.build();
     }
 }

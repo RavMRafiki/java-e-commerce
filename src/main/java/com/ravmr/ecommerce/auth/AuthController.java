@@ -42,10 +42,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {
-    System.out.println("Login attempt for username: " + req.username());
     Authentication auth = authManager.authenticate(
         new UsernamePasswordAuthenticationToken(req.username(), req.password()));
-    System.out.println("Login attempt for username2: " + req.username());
     List<String> roles = auth.getAuthorities().stream()
         .map(GrantedAuthority::getAuthority)
         .map(r -> r.replace("ROLE_", ""))
@@ -54,13 +52,9 @@ public class AuthController {
     String accessToken = tokenService.generateAccessToken(auth.getName(), roles);
     String refreshToken = authService.issueRefreshToken(auth.getName());
 
-    // String accessToken = tokenService.generateAccessToken(req.username(), List.of("USER"));
-    // String refreshToken = authService.issueRefreshToken(req.username());
-
     ResponseCookie cookie = baseRefreshCookie(refreshToken)
         .maxAge(Duration.ofSeconds(tokenService.getRefreshExpirationSeconds()))
         .build();
-    System.out.println("Login attempt for username3: " + req.username());
 
     return ResponseEntity.ok()
         .header(HttpHeaders.SET_COOKIE, cookie.toString())

@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     default User createNewUser(User user) {
         return save(user);
     }
+    
 }
