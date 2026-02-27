@@ -26,4 +26,16 @@ public class ProductAttributeValue {
 
     @Column(nullable = true)
     private Boolean booleanValue;
+
+    public Long getId() { return id; }
+    public Product getProduct() { return product; }
+    public void setProduct(Product product) { this.product = product; }
+    public Attribute getAttribute() { return attribute; }
+    public void setAttribute(Attribute attribute) { this.attribute = attribute; }
+    public String getStringValue() { return stringValue; }
+    public void setStringValue(String stringValue) { this.stringValue = stringValue; }
+    public Double getNumericValue() { return numericValue; }
+    public void setNumericValue(Double numericValue) { this.numericValue = numericValue; }
+    public Boolean getBooleanValue() { return booleanValue; }
+    public void setBooleanValue(Boolean booleanValue) { this.booleanValue = booleanValue; }
 }

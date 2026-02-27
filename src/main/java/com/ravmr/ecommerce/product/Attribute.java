@@ -24,4 +24,12 @@ public class Attribute {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public ValueType getValueType() { return valueType; }
+    public void setValueType(ValueType valueType) { this.valueType = valueType; }
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 }

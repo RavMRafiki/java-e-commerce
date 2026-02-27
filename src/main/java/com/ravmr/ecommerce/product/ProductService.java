@@ -1,9 +1,10 @@
 package com.ravmr.ecommerce.product;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
+
+import com.ravmr.ecommerce.product.ProductResponseDtos.ProductResponseDto;
 
 @Service
 public class ProductService {
@@ -13,10 +14,22 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> getAllProducts() {
-        System.out.println(productRepository.findAll());
-        return productRepository.findAll();
+    public List<ProductResponseDto> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(this::toDto)
+                .toList();
     }
 
+    private ProductResponseDto toDto(Product product) {
+        return new ProductResponseDto(
+                product.getId(),
+                product.getName(),
+                product.getShortDescription(),
+                product.getPrice(),
+                product.getCategory() != null ? product.getCategory().getName() : null,
+                "product.getAttributeValues().iterator().next().getAttribute().getName()"
+        );
+    }
 
 }

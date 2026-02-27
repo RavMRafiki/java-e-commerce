@@ -81,4 +81,11 @@ public class DeliveryService {
         delivery.setIsDefault(true);
         repo.save(delivery);
     }
+
+    @Transactional
+    public java.util.List<Delivery> getAllDeliveryInfoForUser(Long userId) {
+        return repo.findAll().stream()
+                .filter(delivery -> delivery.getUser().getId().equals(userId))
+                .toList();
+    }
 }

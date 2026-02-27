@@ -79,4 +79,12 @@ public class DeliveryController {
         }
         return ResponseEntity.ok(Map.of("message", "Default delivery information set successfully"));
     }
+
+    @GetMapping("/delivery/all")
+    public ResponseEntity<?> getAllDeliveryInfo() {
+        String username = org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication().getName();
+        User user = userService.getUserByUsername(username);
+        return ResponseEntity.ok(deliveryService.getAllDeliveryInfoForUser(user.getId()));
+    }
 }
