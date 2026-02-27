@@ -66,7 +66,7 @@ public class SecurityConfig {
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/api/auth/login", "/api/user/register", "/api/auth/refresh", "/api/auth/logout", "/api/ping", "/actuator/**").permitAll()
+                .requestMatchers("/api/auth/login", "/api/user/register", "/api/auth/refresh", "/api/auth/logout", "/api/ping", "/actuator/**", "/api/products").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(new JwtAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class)
