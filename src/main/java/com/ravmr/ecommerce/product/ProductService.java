@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ravmr.ecommerce.product.ProductResponseDtos.AttributeValueResponseDto;
 import com.ravmr.ecommerce.product.ProductResponseDtos.ProductResponseDto;
 
 @Service
@@ -22,14 +23,22 @@ public class ProductService {
     }
 
     private ProductResponseDto toDto(Product product) {
+
+        List<AttributeValueResponseDto> attributeValues = product.getAttributeValues().stream().map(av -> new AttributeValueResponseDto(
+                av.getAttribute().getName(),
+                av.getStringValue() != null ? av.getStringValue() :
+                av.getNumericValue() != null ? av.getNumericValue().toString() :
+                av.getBooleanValue() != null ? av.getBooleanValue().toString() :
+                null
+        )).toList();
+
         return new ProductResponseDto(
                 product.getId(),
                 product.getName(),
                 product.getShortDescription(),
                 product.getPrice(),
                 product.getCategory() != null ? product.getCategory().getName() : null,
-                "product.getAttributeValues().iterator().next().getAttribute().getName()"
+                attributeValues
         );
     }
-
 }

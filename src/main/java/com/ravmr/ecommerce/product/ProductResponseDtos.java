@@ -1,5 +1,7 @@
 package com.ravmr.ecommerce.product;
 
+import java.util.List;
+
 public class ProductResponseDtos {
         public record ProductResponseDto(
                 Long id,
@@ -7,12 +9,13 @@ public class ProductResponseDtos {
                 String shortDescription,
                 Double price,
                 String categoryName,
-                String attribute
+                List<AttributeValueResponseDto> attributes
         ) {
         }
 
         public record AttributeValueResponseDto(
-                String attributeName
+                String attributeName,
+                String attributeValue
         ) {
         }
 }
