@@ -34,10 +34,7 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser() {
-        String username = org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getName();
-        
-        var user = userService.getUserByUsername(username);
+        User user = userService.getUserFromContext();
         return ResponseEntity.ok(Map.of(
                 "username", user.getUsername(),
                 "email", user.getEmail(),

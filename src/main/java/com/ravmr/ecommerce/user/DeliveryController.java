@@ -21,10 +21,7 @@ public class DeliveryController {
 
     @PostMapping("/delivery")
     public ResponseEntity<?> addDeliveryInfo(@Valid @RequestBody DeliveryRequest req) {
-        String username = org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getName();
-        
-        User user = userService.getUserByUsername(username);
+        User user = userService.getUserFromContext();
 
         deliveryService.addDeliveryInfo(user, req);
         return ResponseEntity.ok(Map.of("message", "Delivery information added successfully"));
@@ -42,9 +39,7 @@ public class DeliveryController {
 
     @DeleteMapping("/delivery/{id}")
     public ResponseEntity<?> removeDeliveryInfo(@PathVariable Long id) {
-        String username = org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getName();
-        User user = userService.getUserByUsername(username);
+        User user = userService.getUserFromContext();
         deliveryService.removeDeliveryInfo(id, user);
         return ResponseEntity.ok(Map.of("message", "Delivery information removed successfully"));
     }
@@ -61,18 +56,14 @@ public class DeliveryController {
 
     @PatchMapping("/delivery/{id}")
     public ResponseEntity<?> updateDeliveryInfo(@PathVariable Long id, @RequestBody DeliveryRequestUpdate req) {
-        String username = org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getName();
-        User user = userService.getUserByUsername(username);
+        User user = userService.getUserFromContext();
         deliveryService.updateDeliveryInfo(id, user, req);
         return ResponseEntity.ok(Map.of("message", "Delivery information updated successfully"));
     }
 
     @PutMapping("/delivery/default/{deliveryId}")
     public ResponseEntity<?> setDefaultDeliveryInfo(@PathVariable Long deliveryId) {
-        String username = org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getName();
-        User user = userService.getUserByUsername(username);
+        User user = userService.getUserFromContext();
         Delivery delivery = deliveryService.getDefaultDeliveryForUser(user.getId());
         if (!delivery.getId().equals(deliveryId)) {
             deliveryService.setDefaultDeliveryInfo(deliveryId, user);
@@ -82,9 +73,7 @@ public class DeliveryController {
 
     @GetMapping("/delivery/all")
     public ResponseEntity<?> getAllDeliveryInfo() {
-        String username = org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getName();
-        User user = userService.getUserByUsername(username);
+        User user = userService.getUserFromContext();
         return ResponseEntity.ok(deliveryService.getAllDeliveryInfoForUser(user.getId()));
     }
 }

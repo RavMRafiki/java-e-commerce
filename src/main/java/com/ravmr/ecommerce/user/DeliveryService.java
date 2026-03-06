@@ -83,9 +83,24 @@ public class DeliveryService {
     }
 
     @Transactional
-    public java.util.List<Delivery> getAllDeliveryInfoForUser(Long userId) {
+    public java.util.List<DeliveryResponseDtos.DeliveryResponseDto> getAllDeliveryInfoForUser(Long userId) {
         return repo.findAll().stream()
                 .filter(delivery -> delivery.getUser().getId().equals(userId))
+                .map(this::toDto)
                 .toList();
+    }
+
+    private DeliveryResponseDtos.DeliveryResponseDto toDto(Delivery delivery) {
+        return new DeliveryResponseDtos.DeliveryResponseDto(
+                delivery.getId(),
+                delivery.getName(),
+                delivery.getStreet(),
+                delivery.getHouseNumber(),
+                delivery.getApartmentNumber(),
+                delivery.getCity(),
+                delivery.getPostalCode(),
+                delivery.getPhoneNumber(),
+                delivery.isDefault()
+        );
     }
 }

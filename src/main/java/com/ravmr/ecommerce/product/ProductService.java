@@ -20,6 +20,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    public Product getProductById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found: " + productId));
+    }
+
     public List<ProductResponseDto> getAllProducts(String category, Double minPrice, Double maxPrice) {
         Predicate<Product> commonFilter = matchesCommonFilters(category, minPrice, maxPrice);
 

@@ -1,5 +1,7 @@
 package com.ravmr.ecommerce.user;
 
+import com.ravmr.ecommerce.cart.Cart;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -29,8 +31,13 @@ public class User {
     @Column(nullable = false, length = 128)
     private String passwordHash;
 
-    public Long getId() { return id; }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private java.util.Set<Delivery> deliveries = new java.util.HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private java.util.Set<Cart> cartItems = new java.util.HashSet<>();
+
+    public Long getId() { return id; }
     public String getUsername() { return username;}
     public void setUsername(String username) { this.username = username; }
     public String getEmail() { return email; }
@@ -43,4 +50,8 @@ public class User {
     public void setLastName(String lastName) { this.lastName = lastName; }
     public String getPasswordHash() { return passwordHash; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+    public java.util.Set<Delivery> getDeliveries() { return deliveries; }
+    public void setDeliveries(java.util.Set<Delivery> deliveries) { this.deliveries = deliveries; }
+    public java.util.Set<Cart> getCartItems() { return cartItems; }
+    public void setCartItems(java.util.Set<Cart> cartItems) { this.cartItems = cartItems; }
 }

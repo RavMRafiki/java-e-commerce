@@ -36,4 +36,17 @@ public class UserService {
         return repo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found: " + username));
     }
+
+    @Transactional
+    public User getUserFromContext() {
+        String username = org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication().getName();
+        return getUserByUsername(username);
+    }
+
+    @Transactional
+    public User getUserById(Long userId) {
+        return repo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+    }
 }
