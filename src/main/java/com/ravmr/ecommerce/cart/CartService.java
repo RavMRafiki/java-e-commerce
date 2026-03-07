@@ -30,7 +30,6 @@ public class CartService {
 
     CartResponseDtos.CartResponseDto toDto(Cart cart) {
         return new CartResponseDtos.CartResponseDto(
-                cart.getId(),
                 cart.getProduct().getId(),
                 cart.getProduct().getName(),
                 cart.getProduct().getShortDescription(),
